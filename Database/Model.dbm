@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.0" last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<database name="new_database">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Tweet">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="258" y="163"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="from" not-null="true">
+		<type name="varchar" length="254"/>
+	</column>
+	<column name="text" not-null="true">
+		<type name="varchar" length="280"/>
+	</column>
+	<column name="Time" not-null="true">
+		<type name="timestamptz" length="0"/>
+	</column>
+	<constraint name="tweet_pk" type="pk-constr" table="public.&quot;Tweet&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="SentimentRating">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="617" y="162"/>
+	<column name="tweet_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="method" not-null="true">
+		<type name="varchar" length="128"/>
+	</column>
+	<column name="score" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="sentiment_rating_pk" type="pk-constr" table="public.&quot;SentimentRating&quot;">
+		<columns names="tweet_id,method" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="sentiment_rating_tweet_id_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Tweet&quot;" table="public.&quot;SentimentRating&quot;">
+	<columns names="tweet_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="&quot;rel_SentimentRating_Tweet&quot;" type="relfk"
+	 src-table="public.&quot;SentimentRating&quot;"
+	 dst-table="public.&quot;Tweet&quot;"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
